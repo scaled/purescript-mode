@@ -33,6 +33,14 @@ class PureScriptGrammarPlugin extends GrammarPlugin {
     effacer("storage.type.class", keywordStyle),
     effacer("storage", variableStyle)
   )
+
+  override def syntaxers = List(
+    syntaxer("comment.line", Syntax.LineComment),
+    syntaxer("comment.line.double-dash.documentation", Syntax.DocComment),
+    syntaxer("constant", Syntax.OtherLiteral),
+    syntaxer("string.quoted.triple", Syntax.HereDocLiteral),
+    syntaxer("string", Syntax.StringLiteral)
+  )
 }
 
 @Major(name="purescript",
@@ -56,6 +64,7 @@ class PureScriptMode (env :Env) extends GrammarCodeMode(env) {
     override def blockOpen = ""
     override def blockClose = ""
     override def blockPrefix = ""
-    override def docPrefix   = "|||"
+    override def docOpen   = "-- |"
+    override def docPrefix   = "-- |"
   }
 }
