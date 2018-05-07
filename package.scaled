@@ -5,3 +5,4 @@ descrip: Provides support for editing PureScript code.
  weburl: https://github.com/scaled/purescript-mode
 license: New BSD
  depend: git:https://github.com/scaled/textmate-grammar.git
+ depend: git:https://github.com/scaled/project-service.git
