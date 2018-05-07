@@ -1,0 +1,307 @@
+name: PureScript
+scopeName: source.purescript
+repository:
+ block_comment:
+  multi:
+   name: comment.block.documentation.purescript
+   begin: \{-\s*\|
+   bcaps: 0=punctuation.definition.comment.documentation.purescript
+   end: -\}
+   ecaps: 0=punctuation.definition.comment.documentation.purescript
+   patterns:
+    include: #block_comment
+  multi:
+   name: comment.block.purescript
+   begin: \{-
+   bcaps: 0=punctuation.definition.comment.purescript
+   end: -\}
+   patterns:
+    include: #block_comment
+ characters:
+  single:
+   pattern: (?:[ -\[\]-~]|(\\(?:NUL|SOH|STX|ETX|EOT|ENQ|ACK|BEL|BS|HT|LF|VT|FF|CR|SO|SI|DLE|DC1|DC2|DC3|DC4|NAK|SYN|ETB|CAN|EM|SUB|ESC|FS|GS|RS|US|SP|DEL|[abfnrtv\\\"'\&]))|(\\o[0-7]+)|(\\x[0-9A-Fa-f]+)|(\^[A-Z@\[\]\\\^_]))
+   caps: 1=constant.character.escape.purescript 2=constant.character.escape.octal.purescript 3=constant.character.escape.hexadecimal.purescript 4=constant.character.escape.control.purescript
+ class_constraint:
+  single:
+   name: meta.class-constraint.purescript
+   pattern: (?:(?:([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*)\s+)(?:(?<classConstraint>(?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*|(?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*\.)?[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)(?:\s*(?:\s+)\s*\k<classConstraint>)?)))
+ comments:
+  single:
+   name: comment.line.double-dash.documentation.purescript
+   pattern: ^-- \|(.*)
+  single:
+   name: comment.line.double-dash.purescript
+   pattern: ^-- (.*)
+  include: #block_comment
+ data_ctor:
+  single:
+   name: entity.name.tag.purescript
+   pattern: \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*
+ double_colon:
+  single:
+   name: keyword.other.double-colon.purescript
+   pattern: (?:::|∷)
+ function_type_declaration:
+  multi:
+   name: meta.function.type-declaration.purescript
+   begin: ^(\s*)([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\s*(?:(::|∷)(?!.*<-))
+   bcaps: 2=entity.name.function.purescript 3=keyword.other.double-colon.purescript
+   end: ^(?!\1[ \t]|[ \t]*$)
+   patterns:
+    include: #double_colon
+    include: #type_signature
+ generic_type:
+  single:
+   name: variable.other.generic-type.purescript
+   pattern: \b(?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*\.)?[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
+ infix_op:
+  single:
+   name: entity.name.function.infix.purescript
+   pattern: (?:\((?!--+\))[\p{S}\p{P}&&[^(),;\[\]`{}_"']]+\))
+ kind_signature:
+  single:
+   name: keyword.other.star.purescript
+   pattern: \*
+  single:
+   name: keyword.other.exclaimation-point.purescript
+   pattern: !
+  single:
+   name: keyword.other.pound-sign.purescript
+   pattern: #
+  single:
+   name: keyword.other.arrow.purescript
+   pattern: ->|→
+ module_exports:
+  multi:
+   name: meta.declaration.exports.purescript
+   begin: \(
+   end: \)
+   patterns:
+    include: #comments
+    single:
+     name: entity.name.function.purescript
+     pattern: \b(?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*\.)?[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*
+    include: #type_name
+    single:
+     name: punctuation.separator.comma.purescript
+     pattern: ,
+    include: #infix_op
+    single:
+     name: meta.other.constructor-list.purescript
+     pattern: \(.*?\)
+ module_name:
+  single:
+   name: support.other.module.purescript
+   pattern: (?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*\.)*[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*\.?
+ record_field_declaration:
+  multi:
+   name: meta.record-field.type-declaration.purescript
+   begin: ([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\s*(::|∷)
+   bcaps: 2=keyword.other.double-colon.purescript
+   end: (?=([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)\s*(::|∷)|})
+   patterns:
+    include: #type_signature
+    include: #record_types
+ record_types:
+  multi:
+   name: meta.type.record.purescript
+   begin: \{
+   bcaps: 0=keyword.operator.type.record.begin.purescript
+   end: \}
+   ecaps: 0=keyword.operator.type.record.end.purescript
+   patterns:
+    single:
+     name: punctuation.separator.comma.purescript
+     pattern: ,
+    include: #record_field_declaration
+    include: #comments
+ type_name:
+  single:
+   name: entity.name.type.purescript
+   pattern: \b[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*
+ type_signature:
+  single:
+   name: meta.class-constraints.purescript
+   pattern: (?:(?:\()(?:(?<classConstraints>(?:(?:(?:([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*)\s+)(?:(?<classConstraint>(?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*|(?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*\.)?[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)(?:\s*(?:\s+)\s*\k<classConstraint>)?))))(?:\s*(?:,)\s*\k<classConstraints>)?))(?:\))(?:\s*(=>|<=|⇐|⇒)))
+   caps: 4=keyword.other.big-arrow.purescript
+  single:
+   name: meta.class-constraints.purescript
+   pattern: ((?:(?:([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*)\s+)(?:(?<classConstraint>(?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*|(?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*\.)?[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)(?:\s*(?:\s+)\s*\k<classConstraint>)?))))\s*(=>|<=|⇐|⇒)
+   caps: 4=keyword.other.big-arrow.purescript
+  single:
+   name: keyword.other.arrow.purescript
+   pattern: ->|→
+  single:
+   name: keyword.other.big-arrow.purescript
+   pattern: =>|⇒
+  single:
+   name: keyword.other.big-arrow-left.purescript
+   pattern: <=|⇐
+  single:
+   name: keyword.other.forall.purescript
+   pattern: forall|∀
+  include: #generic_type
+  include: #type_name
+  include: #comments
+patterns:
+ single:
+  name: keyword.operator.function.infix.purescript
+  pattern: (`)(?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*\.)?[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(`)
+  caps: 1=punctuation.definition.entity.purescript 2=punctuation.definition.entity.purescript
+ multi:
+  name: meta.declaration.module.purescript
+  begin: \b(module)(?!')\b
+  bcaps: 1=keyword.other.purescript
+  end: \s+(where)
+  ecaps: 1=keyword.other.purescript
+  patterns:
+   include: #comments
+   include: #module_name
+   include: #module_exports
+   single:
+    name: invalid.purescript
+    pattern: [a-z]+
+ multi:
+  name: meta.declaration.typeclass.purescript
+  begin: \b(class)(?!')\b
+  bcaps: 1=storage.type.class.purescript
+  end: \b(where)\b|$
+  ecaps: 1=keyword.other.purescript
+  patterns:
+   include: #type_signature
+ multi:
+  name: meta.declaration.instance.purescript
+  begin: \b(instance)(?!')\b
+  bcaps: 1=keyword.other.purescript
+  end: \b(where)\b|$
+  ecaps: 1=keyword.other.purescript
+  patterns:
+   include: #type_signature
+ multi:
+  name: meta.foreign.data.purescript
+  begin: ^(\s*)(foreign)\s+(import)\s+(data)\s+([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
+  bcaps: 2=keyword.other.purescript 3=keyword.other.purescript 4=keyword.other.purescript 5=entity.name.type.purescript 6=keyword.other.double-colon.purescript
+  end: ^(?!\1[ \t]|[ \t]*$)
+  patterns:
+   include: #double_colon
+   include: #kind_signature
+ multi:
+  name: meta.foreign.purescript
+  begin: ^(\s*)(foreign)\s+(import)\s+([\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
+  bcaps: 2=keyword.other.purescript 3=keyword.other.purescript 4=entity.name.function.purescript
+  end: ^(?!\1[ \t]|[ \t]*$)
+  patterns:
+   include: #double_colon
+   include: #type_signature
+ multi:
+  name: meta.import.purescript
+  begin: \b(import)(?!')\b
+  bcaps: 1=keyword.other.purescript
+  end: ($|(?=--))
+  patterns:
+   include: #module_name
+   include: #module_exports
+   single:
+    pattern: \b(as|hiding)\b
+    caps: 1=keyword.other.purescript
+ multi:
+  name: meta.declaration.type.data.purescript
+  begin: ^(\s)*(data|newtype)\s+(.+?)\s*(?=\=|$)
+  bcaps: 2=storage.type.data.purescript 3=meta.type-signature.purescript
+  end: ^(?!\1[ \t]|[ \t]*$)
+  patterns:
+   include: #comments
+   single:
+    pattern: =
+    caps: 0=keyword.operator.assignment.purescript
+   single:
+    pattern: (?:(?:\b([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*)\s+)(?:(?<ctorArgs>(?:(?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*|(?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*\.)?[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*|(?:(?:[\w()'→⇒\[\],]|->|=>)+\s*)+))(?:\s*(?:\s+)\s*\k<ctorArgs>)?)?))
+    caps: 2=meta.type-signature.purescript
+   single:
+    pattern: \|
+    caps: 0=punctuation.separator.pipe.purescript
+   include: #record_types
+ multi:
+  name: meta.declaration.type.type.purescript
+  begin: ^(\s)*(type)\s+(.+?)\s*(?=\=|$)
+  bcaps: 2=storage.type.data.purescript 3=meta.type-signature.purescript
+  end: ^(?!\1[ \t]|[ \t]*$)
+  patterns:
+   single:
+    pattern: =
+    caps: 0=keyword.operator.assignment.purescript
+   include: #type_signature
+   include: #record_types
+   include: #comments
+ single:
+  name: keyword.other.purescript
+  pattern: \b(derive|where|data|type|newtype|infix[lr]?|foreign)(?!')\b
+ single:
+  name: entity.name.function.typed-hole.purescript
+  pattern: \?(?:[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*|[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)
+ single:
+  name: storage.type.purescript
+  pattern: \b(data|type|newtype)(?!')\b
+ single:
+  name: keyword.control.purescript
+  pattern: \b(do|if|then|else|case|of|let|in)(?!')\b
+ single:
+  name: constant.numeric.float.purescript
+  pattern: \b([0-9]+\.[0-9]+([eE][+-]?[0-9]+)?|[0-9]+[eE][+-]?[0-9]+)\b
+ single:
+  name: constant.language.boolean.purescript
+  pattern: \b(true|false)\b
+ single:
+  name: constant.numeric.purescript
+  pattern: \b([0-9]+|0([xX][0-9a-fA-F]+|[oO][0-7]+))\b
+ multi:
+  name: string.quoted.triple.purescript
+  begin: """
+  bcaps: 0=punctuation.definition.string.begin.purescript
+  end: """
+  ecaps: 0=punctuation.definition.string.end.purescript
+ multi:
+  name: string.quoted.double.purescript
+  begin: "
+  bcaps: 0=punctuation.definition.string.begin.purescript
+  end: "
+  ecaps: 0=punctuation.definition.string.end.purescript
+  patterns:
+   single:
+    name: constant.character.escape.purescript
+    pattern: \\(NUL|SOH|STX|ETX|EOT|ENQ|ACK|BEL|BS|HT|LF|VT|FF|CR|SO|SI|DLE|DC1|DC2|DC3|DC4|NAK|SYN|ETB|CAN|EM|SUB|ESC|FS|GS|RS|US|SP|DEL|[abfnrtv\\\"'\&])
+   single:
+    name: constant.character.escape.octal.purescript
+    pattern: \\o[0-7]+|\\x[0-9A-Fa-f]+|\\[0-9]+
+   single:
+    name: constant.character.escape.control.purescript
+    pattern: \^[A-Z@\[\]\\\^_]
+ single:
+  name: markup.other.escape.newline.purescript
+  pattern: \\$
+ single:
+  name: string.quoted.single.purescript
+  pattern: (')((?:[ -\[\]-~]|(\\(?:NUL|SOH|STX|ETX|EOT|ENQ|ACK|BEL|BS|HT|LF|VT|FF|CR|SO|SI|DLE|DC1|DC2|DC3|DC4|NAK|SYN|ETB|CAN|EM|SUB|ESC|FS|GS|RS|US|SP|DEL|[abfnrtv\\\"'\&]))|(\\o[0-7]+)|(\\x[0-9A-Fa-f]+)|(\^[A-Z@\[\]\\\^_])))(')
+  caps: 1=punctuation.definition.string.begin.purescript 7=punctuation.definition.string.end.purescript
+ include: #function_type_declaration
+ single:
+  pattern: \((?<paren>(?:[^()]|\(\k<paren>\))*)(::|∷)(?<paren2>(?:[^()]|\(\k<paren2>\))*)\)
+  caps: 2=keyword.other.double-colon.purescript 3=meta.type-signature.purescript
+ multi:
+  begin: ^(\s*)(?:(::|∷))
+  bcaps: 2=keyword.other.double-colon.purescript
+  end: ^(?!\1[ \t]*|[ \t]*$)
+  patterns:
+   include: #type_signature
+ include: #data_ctor
+ include: #comments
+ include: #infix_op
+ single:
+  name: keyword.other.arrow.purescript
+  pattern: \<-|-\>
+ single:
+  name: keyword.operator.purescript
+  pattern: [\p{S}\p{P}&&[^(),;\[\]`{}_"']]+
+ single:
+  name: punctuation.separator.comma.purescript
+  pattern: ,
