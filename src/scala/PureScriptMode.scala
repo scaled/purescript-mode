@@ -17,9 +17,10 @@ class PureScriptGrammarPlugin extends GrammarPlugin {
   override def grammars = Map("source.purescript" -> "PureScript.ndf")
 
   override def effacers = List(
+    effacer("comment.line.documentation", docStyle),
+    effacer("comment.block.documentation", docStyle),
     effacer("comment.line", commentStyle),
-    effacer("comment.block.string", stringStyle),
-    effacer("comment.line.double-dash.documentation", docStyle),
+    effacer("comment.block", commentStyle),
     effacer("constant", constantStyle),
     effacer("invalid", warnStyle),
     effacer("keyword.directive", moduleStyle),
@@ -35,8 +36,10 @@ class PureScriptGrammarPlugin extends GrammarPlugin {
   )
 
   override def syntaxers = List(
+    syntaxer("comment.line.documentation", Syntax.DocComment),
+    syntaxer("comment.block.documentation", Syntax.DocComment),
     syntaxer("comment.line", Syntax.LineComment),
-    syntaxer("comment.line.double-dash.documentation", Syntax.DocComment),
+    syntaxer("comment.block", Syntax.BlockComment),
     syntaxer("constant", Syntax.OtherLiteral),
     syntaxer("string.quoted.triple", Syntax.HereDocLiteral),
     syntaxer("string", Syntax.StringLiteral)

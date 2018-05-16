@@ -27,10 +27,10 @@ repository:
    pattern: (?:(?:([\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*)\s+)(?:(?<classConstraint>(?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*|(?:[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*(?:\.[\p{Lu}\p{Lt}][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)*\.)?[\p{Ll}_][\p{Ll}_\p{Lu}\p{Lt}\p{Nd}']*)(?:\s*(?:\s+)\s*\k<classConstraint>)?)))
  comments:
   single:
-   name: comment.line.double-dash.documentation.purescript
+   name: comment.line.documentation.purescript
    pattern: ^-- \|(.*)
   single:
-   name: comment.line.double-dash.purescript
+   name: comment.line.purescript
    pattern: ^-- (.*)
   include: #block_comment
  data_ctor:
