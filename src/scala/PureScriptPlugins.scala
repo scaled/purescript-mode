@@ -9,14 +9,15 @@ import scaled._
 
 object PureScriptPlugins {
 
-  val BowerFile = "bower.json"
+  val ProjectFiles = Seq("bower.json", "psc-package.json")
   val NodeModules = "node_modules"
   val PLSModule = "purescript-language-server"
 
   @Plugin(tag="langserver")
   class PureScriptLangPlugin extends LangPlugin {
     def suffs (root :Project.Root) = Set("purs")
-    def canActivate (root :Project.Root) = Files.exists(root.path.resolve(BowerFile)) &&
+    def canActivate (root :Project.Root) =
+      ProjectFiles.exists(p => Files.exists(root.path.resolve(p))) &&
       Files.exists(root.path.resolve(NodeModules).resolve(PLSModule))
     def createClient (metaSvc :MetaService, root :Project.Root) =
       Future.success(new PureScriptLangClient(metaSvc, root.path, serverCmd(root.path)))
