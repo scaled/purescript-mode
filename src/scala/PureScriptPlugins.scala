@@ -53,8 +53,8 @@ object PureScriptPlugins {
     def canActivate (root :Project.Root) =
       ProjectFiles.exists(p => Files.exists(root.path.resolve(p))) &&
       Files.exists(root.path.resolve(NodeModules).resolve(PLSModule))
-    def createClient (metaSvc :MetaService, root :Project.Root) =
-      Future.success(new PureScriptLangClient(metaSvc, root.path, serverCmd(root.path)))
+    def createClient (proj :Project) = Future.success(
+      new PureScriptLangClient(proj.metaSvc, proj.root.path, serverCmd(proj.root.path)))
   }
 
   private def serverCmd (root :Path) :Seq[String] = {
