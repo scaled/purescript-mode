@@ -23,7 +23,7 @@ object PureScriptPlugins {
 
     override def metaFiles (root :Project.Root) = Seq(root.path.resolve(PscPkgFile))
 
-    def addComponents (project :Project) {
+    def addComponents (project :Project) :Unit = {
       val rootPath = project.root.path
       val bowerFile = rootPath.resolve(PscPkgFile)
       val config = Json.parse(Files.newBufferedReader(bowerFile)).asObject

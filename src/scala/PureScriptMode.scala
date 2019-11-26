@@ -52,7 +52,7 @@ class PureScriptGrammarPlugin extends GrammarPlugin {
        desc="A major mode for editing PureScript code.")
 class PureScriptMode (env :Env) extends GrammarCodeMode(env) {
 
-  override def dispose () {} // nada for now
+  override def dispose () :Unit = {} // nada for now
 
   override def langScope = "source.purescript"
 
